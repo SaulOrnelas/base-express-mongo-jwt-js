@@ -3,8 +3,7 @@ const { Schema, model } = require('mongoose')
 const ProductSchema = Schema({
   name: {
     type: String,
-    required: [true, 'Name is required'],
-    unique: true,
+    required: [true, 'Name is required']
   },
   state: {
     type: Boolean,

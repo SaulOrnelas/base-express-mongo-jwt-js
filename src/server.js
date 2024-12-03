@@ -13,6 +13,7 @@ class Server {
       categories: '/api/categories',
       products: '/api/products',
       users: '/api/users',
+      seeders: '/api/seeders'
     }
 
     // Conectar a base de datos
@@ -45,6 +46,7 @@ class Server {
     this.app.use(this.paths.categories, require('./routes/categories'))
     this.app.use(this.paths.products, require('./routes/products'))
     this.app.use(this.paths.users, require('./routes/users'))
+    this.app.use(this.paths.seeders, require('./routes/seeder'))
   }
 
   listen() {
