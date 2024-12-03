@@ -1,7 +1,7 @@
 const { faker } = require('@faker-js/faker');
 const User = require('../models/user');
 const Category = require('../models/category');
-const Product = require('../models/product');
+const Dish = require('../models/Dish');
 
 const getAdminsUsers = (async () => {
   let adminUsers = await User.find({role: "ADMIN"}).exec();
@@ -29,7 +29,7 @@ const generateCategories = (async () => {
   return uniqueCategories;
 });
 
-const insertProducts = (async () => {
+const insertDishes = (async () => {
   let categories = await generateCategories();
   let dishes = [];
 
@@ -56,13 +56,13 @@ const insertProducts = (async () => {
 
   try {
     await Category.deleteMany({});
-    await Product.deleteMany({});
+    await Dish.deleteMany({});
 
     await Category.insertMany(categories);
-    await Product.insertMany(uniqueDishes);
-    console.log("Products seeder completed")
+    await Dish.insertMany(uniqueDishes);
+    console.log("Dishes seeder completed")
 
-    return {seederCompleted: true, message: "Categories and Products saved"};
+    return {seederCompleted: true, message: "Categories and Dishes saved"};
   } catch (error) {
     return {seederCompleted: false, message: "Error to execute seeder"};
   }
@@ -70,5 +70,5 @@ const insertProducts = (async () => {
 })
 
 module.exports = {
-  insertProducts
+  insertDishes
 }

@@ -1,12 +1,12 @@
 const { response } = require('express');
 const { insertUsers } = require('./rolesAndUsers');
-const { insertProducts } = require('./categoriesAndProducts');
+const { insertDishes } = require('./categoriesAndDishes');
 
 const executeSeeder = (async (req, res = response) => {
   try {
     let userResponse = await insertUsers();
-    let productsResponse = await insertProducts();
-    if (userResponse.seederCompleted && productsResponse.seederCompleted) {
+    let dishesResponse = await insertDishes();
+    if (userResponse.seederCompleted && dishesResponse.seederCompleted) {
       res.json({
         seederCompleted: true,
         message: "All seeders were completed"

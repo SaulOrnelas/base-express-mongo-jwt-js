@@ -5,7 +5,7 @@ const Role = require('../models/role');
 
 const roles = [
   {role: "ADMIN"},
-  {role: "SALES"},
+  {role: "WAITER"},
   {role: "CLIENT"},
   {role: "OTHER"}
 ]
@@ -33,27 +33,27 @@ const generateAdminsUsers = (() => {
   return admins
 })
 
-const generateSalesUsers = (() => {
-  let sales = [];
+const generateWaitersUsers = (() => {
+  let waiters = [];
   for(let i = 0; i < 5; i++) {
     const firstname = faker.person.firstName();
     const lastname = faker.person.lastName();
-    const email = `${firstname.toLocaleLowerCase().replace(/ /g, '')}@sales.com`;
+    const email = `${firstname.toLocaleLowerCase().replace(/ /g, '')}@waiter.com`;
     // Encrypt password
     const salt = bcryptjs.genSaltSync()
-    const password = bcryptjs.hashSync("sales1234", salt);
+    const password = bcryptjs.hashSync("waiter1234", salt);
   
     const generatedUser = {
       name: `${firstname} ${lastname}`,
       email: email,
       password: password,
-      role: "SALES"
+      role: "WAITER"
     };
 
-    sales.push(generatedUser);
+    waiters.push(generatedUser);
   }
 
-  return sales;
+  return waiters;
 })
 
 const generateClientsUsers = (() => {
@@ -80,9 +80,9 @@ const generateClientsUsers = (() => {
 
 const insertUsers = (async () => {
   const adminsUsers = generateAdminsUsers()
-  const salesUsers = generateSalesUsers();
+  const waitersUsers = generateWaitersUsers();
   const clientsUsers = generateClientsUsers();
-  const allUsers = [...adminsUsers, ...salesUsers, ...clientsUsers];
+  const allUsers = [...adminsUsers, ...waitersUsers, ...clientsUsers];
 
   // const session = await mongoose.startSession();
   // session.startTransaction();

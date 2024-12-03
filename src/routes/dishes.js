@@ -4,39 +4,39 @@ const { check } = require('express-validator')
 const { validateJWT, validateFields, isAdminRole } = require('../middlewares')
 
 const {
-  createProduct,
-  fetchProducts,
-  fetchProductById,
-  updateProduct,
-  deleteProduct,
-} = require('../controllers/products')
+  createDish,
+  fetchDishes,
+  fetchDishById,
+  updateDish,
+  deleteDish,
+} = require('../controllers/dishes')
 
 const {
   categoryExistsById,
-  productExistsById,
+  dishExistsById,
 } = require('../helpers/db-validators')
 
 const router = Router()
 
 /**
- * {{url}}/api/products
+ * {{url}}/api/dishes
  */
 
-//  Fetch all products - Token not required
-router.get('/', fetchProducts)
+//  Fetch all dishes - Token not required
+router.get('/', fetchDishes)
 
-// Fetch product by id - Token required
+// Fetch dish by id - Token required
 router.get(
   '/:id',
   [
     check('id', 'MongoId invalid').isMongoId(),
-    check('id').custom(productExistsById),
+    check('id').custom(dishExistsById),
     validateFields,
   ],
-  fetchProductById
+  fetchDishById
 )
 
-// Create product - Token required
+// Create dish - Token required
 router.post(
   '/',
   [
@@ -46,32 +46,32 @@ router.post(
     check('category').custom(categoryExistsById),
     validateFields,
   ],
-  createProduct
+  createDish
 )
 
-// Update product - Token required
+// Update dish - Token required
 router.put(
   '/:id',
   [
     validateJWT,
     check('category', 'MongoId invalid').isMongoId(),
-    check('id').custom(productExistsById),
+    check('id').custom(dishExistsById),
     validateFields,
   ],
-  updateProduct
+  updateDish
 )
 
-// Delete product - Token required (Only Admin)
+// Delete dish - Token required (Only Admin)
 router.delete(
   '/:id',
   [
     validateJWT,
     isAdminRole,
     check('id', 'MongoId invalid').isMongoId(),
-    check('id').custom(productExistsById),
+    check('id').custom(dishExistsById),
     validateFields,
   ],
-  deleteProduct
+  deleteDish
 )
 
 module.exports = router
