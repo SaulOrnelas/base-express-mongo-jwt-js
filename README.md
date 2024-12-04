@@ -56,6 +56,6 @@ Make sure you have the following installed:
    npm start
 
 2. Execute seeders:
-	A. Connect to your MongoDB database using **MONGO_URL** env variable
-	B. Example: **MONGODB_URL=mongodb://localhost:27017/restaurant_db**
-	C. Use _{{base_url}}/api/seeders/execute-seeder_ endpoint using GET method
+	- Connect to your MongoDB database using **MONGO_URL** env variable
+	- Example: **MONGODB_URL=mongodb://localhost:27017/restaurant_db**
+	- Use _{{base_url}}/api/seeders/execute-seeder_ endpoint using GET method
