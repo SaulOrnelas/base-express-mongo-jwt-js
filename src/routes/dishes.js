@@ -1,20 +1,16 @@
-const { Router } = require('express')
-const { check } = require('express-validator')
+import { Router } from "express";
+import { check } from "express-validator";
+import middlewares from "../middlewares/index.js";
 
-const { validateJWT, validateFields, isAdminRole } = require('../middlewares')
-
-const {
+import {
   createDish,
   fetchDishes,
   fetchDishById,
   updateDish,
   deleteDish,
-} = require('../controllers/dishes')
+} from '../controllers/dishes.js'
 
-const {
-  categoryExistsById,
-  dishExistsById,
-} = require('../helpers/db-validators')
+import { categoryExistsById, dishExistsById } from "../helpers/db-validators.js";
 
 const router = Router()
 
@@ -31,7 +27,7 @@ router.get(
   [
     check('id', 'MongoId invalid').isMongoId(),
     check('id').custom(dishExistsById),
-    validateFields,
+    middlewares.validateFields,
   ],
   fetchDishById
 )
@@ -40,11 +36,11 @@ router.get(
 router.post(
   '/',
   [
-    validateJWT,
+    middlewares.validateJWT,
     check('name', 'Name is required').not().isEmpty(),
     check('category', 'MongoId invalid').isMongoId(),
     check('category').custom(categoryExistsById),
-    validateFields,
+    middlewares.validateFields,
   ],
   createDish
 )
@@ -53,10 +49,10 @@ router.post(
 router.put(
   '/:id',
   [
-    validateJWT,
+    middlewares.validateJWT,
     check('category', 'MongoId invalid').isMongoId(),
     check('id').custom(dishExistsById),
-    validateFields,
+    middlewares.validateFields,
   ],
   updateDish
 )
@@ -65,13 +61,13 @@ router.put(
 router.delete(
   '/:id',
   [
-    validateJWT,
-    isAdminRole,
+    middlewares.validateJWT,
+    middlewares.isAdminRole,
     check('id', 'MongoId invalid').isMongoId(),
     check('id').custom(dishExistsById),
-    validateFields,
+    middlewares.validateFields,
   ],
   deleteDish
 )
 
-module.exports = router
+export default router

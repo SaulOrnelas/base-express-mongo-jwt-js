@@ -1,7 +1,6 @@
-const { faker } = require('@faker-js/faker');
-const bcryptjs = require('bcryptjs');
-const User = require('../models/user');
-const Role = require('../models/role');
+import { faker } from "@faker-js/faker";
+import bcryptjs from "bcryptjs";
+import { User, Role } from "../models/index.js";
 
 const roles = [
   {role: "ADMIN"},
@@ -78,7 +77,7 @@ const generateClientsUsers = (() => {
   return clients;
 });
 
-const insertUsers = (async () => {
+export const insertUsers = (async () => {
   const adminsUsers = generateAdminsUsers()
   const waitersUsers = generateWaitersUsers();
   const clientsUsers = generateClientsUsers();
@@ -103,7 +102,3 @@ const insertUsers = (async () => {
     return {seederCompleted: false, message: "Error to execute seeder"};
   }
 })
-
-module.exports = {
-  insertUsers
-}

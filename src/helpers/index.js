@@ -1,7 +1,7 @@
-const dbValidators = require('./db-validators')
-const generateJWT = require('./generate-jwt')
+import * as dbValidators from './db-validators';
+import * as generateJWT from './generate-jwt';
 
-module.exports = {
+export default {
   ...dbValidators,
   ...generateJWT,
 }

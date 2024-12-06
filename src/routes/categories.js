@@ -1,16 +1,14 @@
-const { Router } = require('express')
-const { check } = require('express-validator')
-
-const { validateJWT, validateFields, isAdminRole } = require('../middlewares')
-
-const {
+import { Router } from 'express';
+import { check } from 'express-validator';
+import middlewares from '../middlewares/index.js';
+import {
   createCategory,
   fetchCategories,
   fetchCategoryById,
   updateCategory,
   deleteCategory,
-} = require('../controllers/categories')
-const { categoryExistsById } = require('../helpers/db-validators')
+} from '../controllers/categories.js'
+import { categoryExistsById } from '../helpers/db-validators.js';
 
 const router = Router()
 
@@ -27,7 +25,7 @@ router.get(
   [
     check('id', 'Invalid MongoId').isMongoId(),
     check('id').custom(categoryExistsById),
-    validateFields,
+    middlewares.validateFields,
   ],
   fetchCategoryById
 )
@@ -36,9 +34,9 @@ router.get(
 router.post(
   '/',
   [
-    validateJWT,
+    middlewares.validateJWT,
     check('name', 'Name is required').not().isEmpty(),
-    validateFields,
+    middlewares.validateFields,
   ],
   createCategory
 )
@@ -47,10 +45,10 @@ router.post(
 router.put(
   '/:id',
   [
-    validateJWT,
+    middlewares.validateJWT,
     check('name', 'Name is required').not().isEmpty(),
     check('id').custom(categoryExistsById),
-    validateFields,
+    middlewares.validateFields,
   ],
   updateCategory
 )
@@ -59,13 +57,13 @@ router.put(
 router.delete(
   '/:id',
   [
-    validateJWT,
-    isAdminRole,
+    middlewares.validateJWT,
+    middlewares.isAdminRole,
     check('id', 'Invalid MongoId').isMongoId(),
     check('id').custom(categoryExistsById),
-    validateFields,
+    middlewares.validateFields,
   ],
   deleteCategory
 )
 
-module.exports = router
+export default router

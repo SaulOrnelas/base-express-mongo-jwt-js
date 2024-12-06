@@ -1,8 +1,8 @@
-const { Router } = require('express');
-const { executeSeeder } = require('../seeders/index');
+import { Router } from "express";
+import { executeSeeder } from "../seeders/index.js";
 
 const router = Router()
 
 router.get("/execute-seeder", executeSeeder);
 
-module.exports = router
+export default router;

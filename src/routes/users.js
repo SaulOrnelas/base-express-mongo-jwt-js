@@ -1,25 +1,19 @@
-const { Router } = require('express')
-const { check } = require('express-validator')
+import { Router } from "express";
+import { check } from "express-validator";
+import middlewares from "../middlewares/index.js";
 
-const {
-  validateFields,
-  validateJWT,
-  //isAdminRole,
-  hasRole,
-} = require('../middlewares')
-
-const {
+import {
   isValidRole,
   existsEmail,
   userExistsById,
-} = require('../helpers/db-validators')
+} from "../helpers/db-validators.js";
 
-const {
+import {
   fetchUsers,
   updateUser,
   createUser,
   deleteUser,
-} = require('../controllers/users')
+} from "../controllers/users.js";
 
 const router = Router()
 
@@ -38,7 +32,7 @@ router.post(
     check('email').custom(existsEmail),
     // check('role', 'Role is not valid').isIn(['ADMIN','USER']),
     check('role').custom(isValidRole),
-    validateFields,
+    middlewares.validateFields,
   ],
   createUser
 )
@@ -50,7 +44,7 @@ router.put(
     check('id', 'Not a valid ID').isMongoId(),
     check('id').custom(userExistsById),
     check('role').custom(isValidRole),
-    validateFields,
+    middlewares.validateFields,
   ],
   updateUser
 )
@@ -59,14 +53,14 @@ router.put(
 router.delete(
   '/:id',
   [
-    validateJWT,
+    middlewares.validateJWT,
     // isAdminRole,
-    hasRole('ADMIN', 'WAITER', 'CLIENT', 'OTHER'),
+    middlewares.hasRole('ADMIN', 'WAITER', 'CLIENT', 'OTHER'),
     check('id', 'Not a valid ID').isMongoId(),
     check('id').custom(userExistsById),
-    validateFields,
+    middlewares.validateFields,
   ],
   deleteUser
 )
 
-module.exports = router
+export default router

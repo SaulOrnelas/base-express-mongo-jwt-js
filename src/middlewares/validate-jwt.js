@@ -1,9 +1,8 @@
-const { response, request } = require('express')
-const jwt = require('jsonwebtoken')
+import { response, request } from "express";
+import jwt from 'jsonwebtoken';
+import { User } from '../models/index.js'
 
-const User = require('../models/user')
-
-const validateJWT = async (req = request, res = response, next) => {
+export const validateJWT = async (req = request, res = response, next) => {
   const token = req.header('x-token')
 
   if (!token) {
@@ -39,8 +38,4 @@ const validateJWT = async (req = request, res = response, next) => {
       msg: 'Invalid User',
     })
   }
-}
-
-module.exports = {
-  validateJWT,
 }

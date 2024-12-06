@@ -1,6 +1,6 @@
-const { response } = require('express')
+import { response } from "express";
 
-const isAdminRole = (req, res = response, next) => {
+export const isAdminRole = (req, res = response, next) => {
   if (!req.user) {
     return res.status(500).json({
       msg: "It's necessary validate token before",
@@ -18,7 +18,7 @@ const isAdminRole = (req, res = response, next) => {
   next()
 }
 
-const hasRole = (...roles) => {
+export const hasRole = (...roles) => {
   return (req, res = response, next) => {
     if (!req.user) {
       return res.status(500).json({
@@ -34,9 +34,4 @@ const hasRole = (...roles) => {
 
     next()
   }
-}
-
-module.exports = {
-  isAdminRole,
-  hasRole,
 }

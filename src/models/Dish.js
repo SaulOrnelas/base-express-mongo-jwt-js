@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose')
+import { Schema, model } from "mongoose";
 
 const DishSchema = Schema({
   name: {
@@ -34,4 +34,4 @@ DishSchema.methods.toJSON = function () {
   return data
 }
 
-module.exports = model('Dish', DishSchema)
+export default model('Dish', DishSchema)

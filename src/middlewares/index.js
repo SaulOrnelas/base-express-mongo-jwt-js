@@ -1,9 +1,9 @@
-const validateFields = require('./validate-fields')
-const validateJWT = require('./validate-jwt')
-const validaRoles = require('./validate-roles')
+import * as validateFields from './validate-fields.js';
+import * as validateJWT from './validate-jwt.js';
+import * as validateRoles from './validate-roles.js'
 
-module.exports = {
+export default {
   ...validateFields,
   ...validateJWT,
-  ...validaRoles,
+  ...validateRoles,
 }

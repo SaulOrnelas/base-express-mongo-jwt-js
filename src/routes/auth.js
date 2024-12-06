@@ -1,8 +1,8 @@
-const { Router } = require('express')
-const { check } = require('express-validator')
+import { Router } from 'express';
+import { check } from 'express-validator';
 
-const { validateFields } = require('../middlewares')
-const { login } = require('../controllers/auth')
+import middlewares from '../middlewares/index.js';
+import { login } from '../controllers/auth.js';
 
 const router = Router()
 
@@ -11,9 +11,9 @@ router.post(
   [
     check('email', 'Email is required').isEmail(),
     check('password', 'Password is required').not().isEmpty(),
-    validateFields,
+    middlewares.validateFields,
   ],
   login
 )
 
-module.exports = router
+export default router;

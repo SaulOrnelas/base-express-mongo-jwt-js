@@ -1,9 +1,8 @@
-const { response, request } = require('express')
-const bcryptjs = require('bcryptjs')
+import { response, request } from "express";
+import bcryptjs from "bcryptjs";
+import { User } from "../models/index.js";
 
-const User = require('../models/user')
-
-const fetchUsers = async (req = request, res = response) => {
+export const fetchUsers = async (req = request, res = response) => {
   const { limit = 5, from = 0 } = req.query
   const query = { state: true }
 
@@ -18,7 +17,7 @@ const fetchUsers = async (req = request, res = response) => {
   })
 }
 
-const createUser = async (req, res = response) => {
+export const createUser = async (req, res = response) => {
   const { name, email, password, role } = req.body
   const user = new User({ name, email, password, role })
 
@@ -33,7 +32,7 @@ const createUser = async (req, res = response) => {
   })
 }
 
-const updateUser = async (req, res = response) => {
+export const updateUser = async (req, res = response) => {
   const { id } = req.params
   const { _id, password, email, ...remainingData } = req.body
 
@@ -48,16 +47,9 @@ const updateUser = async (req, res = response) => {
   res.json(user)
 }
 
-const deleteUser = async (req, res = response) => {
+export const deleteUser = async (req, res = response) => {
   const { id } = req.params
   const user = await User.findByIdAndUpdate(id, { state: false })
 
   res.json(user)
-}
-
-module.exports = {
-  fetchUsers,
-  createUser,
-  updateUser,
-  deleteUser,
 }

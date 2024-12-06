@@ -1,7 +1,7 @@
-const { response } = require('express')
-const { Category } = require('../models')
+import { response } from "express";
+import { Category } from "../models/index.js";
 
-const fetchCategories = async (req, res = response) => {
+export const fetchCategories = async (req, res = response) => {
   const { limit = 5, from = 0 } = req.query
   const query = { state: true }
 
@@ -19,14 +19,14 @@ const fetchCategories = async (req, res = response) => {
   })
 }
 
-const fetchCategoryById = async (req, res = response) => {
+export const fetchCategoryById = async (req, res = response) => {
   const { id } = req.params
   const category = await Category.findById(id).populate('user', 'name')
 
   res.json(category)
 }
 
-const createCategory = async (req, res = response) => {
+export const createCategory = async (req, res = response) => {
   const name = req.body.name.toUpperCase()
 
   const categoryDB = await Category.findOne({ name })
@@ -49,7 +49,7 @@ const createCategory = async (req, res = response) => {
   res.status(201).json(category)
 }
 
-const updateCategory = async (req, res = response) => {
+export const updateCategory = async (req, res = response) => {
   const { id } = req.params
   const { state, user, ...data } = req.body
 
@@ -61,7 +61,7 @@ const updateCategory = async (req, res = response) => {
   res.json(category)
 }
 
-const deleteCategory = async (req, res = response) => {
+export const deleteCategory = async (req, res = response) => {
   const { id } = req.params
   const deletedCategory = await Category.findByIdAndUpdate(
     id,
@@ -70,12 +70,4 @@ const deleteCategory = async (req, res = response) => {
   )
 
   res.json(deletedCategory)
-}
-
-module.exports = {
-  createCategory,
-  fetchCategories,
-  fetchCategoryById,
-  updateCategory,
-  deleteCategory,
 }

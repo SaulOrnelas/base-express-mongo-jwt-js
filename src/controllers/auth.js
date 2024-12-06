@@ -1,11 +1,10 @@
-const { response } = require('express')
-const bcryptjs = require('bcryptjs')
+import { response } from "express";
+import bcryptjs from 'bcryptjs';
 
-const User = require('../models/user')
+import User from '../models/user.js';
+import { generateJWT } from '../helpers/generate-jwt.js';
 
-const { generateJWT } = require('../helpers/generate-jwt')
-
-const login = async (req, res = response) => {
+export const login = async (req, res = response) => {
   const { email, password } = req.body
 
   try {
@@ -45,8 +44,4 @@ const login = async (req, res = response) => {
       msg: 'Comunicate with administrator',
     })
   }
-}
-
-module.exports = {
-  login,
 }

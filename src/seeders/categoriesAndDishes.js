@@ -1,7 +1,5 @@
-const { faker } = require('@faker-js/faker');
-const User = require('../models/user');
-const Category = require('../models/category');
-const Dish = require('../models/Dish');
+import { faker } from "@faker-js/faker";
+import { Category, Dish, User } from "../models/index.js";
 
 const getAdminsUsers = (async () => {
   let adminUsers = await User.find({role: "ADMIN"}).exec();
@@ -29,7 +27,7 @@ const generateCategories = (async () => {
   return uniqueCategories;
 });
 
-const insertDishes = (async () => {
+export const insertDishes = (async () => {
   let categories = await generateCategories();
   let dishes = [];
 
@@ -68,7 +66,3 @@ const insertDishes = (async () => {
   }
 
 })
-
-module.exports = {
-  insertDishes
-}

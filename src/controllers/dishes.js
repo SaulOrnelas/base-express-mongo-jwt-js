@@ -1,7 +1,7 @@
-const { response } = require('express')
-const { Dish } = require('../models')
+import { response } from "express";
+import { Dish } from "../models/index.js";
 
-const fetchDishes = async (req, res = response) => {
+export const fetchDishes = async (req, res = response) => {
   const { limit = 5, from = 0 } = req.query
   const query = { state: true }
 
@@ -20,7 +20,7 @@ const fetchDishes = async (req, res = response) => {
   })
 }
 
-const fetchDishById = async (req, res = response) => {
+export const fetchDishById = async (req, res = response) => {
   const { id } = req.params
   const dish = await Dish.findById(id)
     .populate('user', 'name')
@@ -29,7 +29,7 @@ const fetchDishById = async (req, res = response) => {
   res.json(dish)
 }
 
-const createDish = async (req, res = response) => {
+export const createDish = async (req, res = response) => {
   const { state, user, ...body } = req.body
 
   const dishDB = await Dish.findOne({ name: body.name })
@@ -53,7 +53,7 @@ const createDish = async (req, res = response) => {
   res.status(201).json(dish)
 }
 
-const updateDish = async (req, res = response) => {
+export const updateDish = async (req, res = response) => {
   const { id } = req.params
   const { state, user, ...data } = req.body
 
@@ -68,7 +68,7 @@ const updateDish = async (req, res = response) => {
   res.json(dish)
 }
 
-const deleteDish = async (req, res = response) => {
+export const deleteDish = async (req, res = response) => {
   const { id } = req.params
   const deletedDish = await Dish.findByIdAndUpdate(
     id,
@@ -77,12 +77,4 @@ const deleteDish = async (req, res = response) => {
   )
 
   res.json(deletedDish)
-}
-
-module.exports = {
-  createDish,
-  fetchDishes,
-  fetchDishById,
-  updateDish,
-  deleteDish,
 }

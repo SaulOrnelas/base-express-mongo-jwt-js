@@ -1,7 +1,12 @@
-const express = require('express')
-const cors = require('cors')
+import express from 'express';
+import cors from 'cors';
 
-const { dbConnection } = require('./database/config')
+import { dbConnection } from './database/config.js';
+import authRoutes from './routes/auth.js';
+import categoriesRoutes from './routes/categories.js';
+import dishesRoutes from './routes/dishes.js';
+import usersRoutes from './routes/users.js';
+import seedersRoutes from './routes/seeder.js';
 
 class Server {
   constructor() {
@@ -42,11 +47,11 @@ class Server {
   }
 
   routes() {
-    this.app.use(this.paths.auth, require('./routes/auth'))
-    this.app.use(this.paths.categories, require('./routes/categories'))
-    this.app.use(this.paths.dishes, require('./routes/dishes'))
-    this.app.use(this.paths.users, require('./routes/users'))
-    this.app.use(this.paths.seeders, require('./routes/seeder'))
+    this.app.use(this.paths.auth, authRoutes)
+    this.app.use(this.paths.categories, categoriesRoutes)
+    this.app.use(this.paths.dishes, dishesRoutes)
+    this.app.use(this.paths.users, usersRoutes)
+    this.app.use(this.paths.seeders, seedersRoutes)
   }
 
   listen() {
@@ -56,4 +61,4 @@ class Server {
   }
 }
 
-module.exports = Server
+export default Server;

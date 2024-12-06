@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "This is a project that helps to start a node project using Express, MongoDB and JWT with JavaScript",
   "main": "app.js",
+  "type": "module",
   "scripts": {
     "start": "nodemon ./src/app",
     "test": "echo \"Error: no test specified\" && exit 1"

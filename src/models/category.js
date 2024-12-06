@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose')
+import { Schema, model } from "mongoose";
 
 const CategorySchema = Schema({
   name: {
@@ -23,4 +23,4 @@ CategorySchema.methods.toJSON = function () {
   return data
 }
 
-module.exports = model('Category', CategorySchema)
+export default model('Category', CategorySchema);

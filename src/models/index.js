@@ -1,9 +1,9 @@
-const Category = require('./category')
-const Dish = require('./Dish')
-const Role = require('./role')
-const User = require('./user')
+import Category from "./category.js";
+import Dish from "./dish.js";
+import Role from "./role.js";
+import User from "./user.js";
 
-module.exports = {
+export {
   Category,
   Dish,
   Role,
